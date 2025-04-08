@@ -112,6 +112,22 @@ static int bits_leer(campobits* bits, int pos) {
     putchar('\n');
 }
 
+static int bits_remove_last(campobits* bits) {
+    if (!bits || bits->tamano <= 0){
+        return -1; // Error: No bits to remove
+    }
+
+    // Retrieve the last bit at position (tamano - 1)
+    int last_bit = (bits->bits >> (bits->tamano - 1)) & 0x1;
+    
+    // Decrease the size to reflect the removal of the last bit
+    bits->tamano--;
+    
+    // Clear the bit at the new last position
+    bits->bits &= ~(0x1 << bits->tamano);
+    
+    return last_bit;
+}
 
 static void testCampobitsBitstream() {
     BitStream bs = NULL;
